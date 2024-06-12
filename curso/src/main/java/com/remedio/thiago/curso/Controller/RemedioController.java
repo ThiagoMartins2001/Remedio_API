@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.remedio.thiago.curso.remedio.DadosAtualizarRemedio;
 import com.remedio.thiago.curso.remedio.DadosCadastroRemedio;
 import com.remedio.thiago.curso.remedio.DadosListagemRemedio;
 import com.remedio.thiago.curso.remedio.Remedio;
@@ -36,4 +38,10 @@ public class RemedioController {
         return repository.findAll().stream().map(DadosListagemRemedio::new).toList();
     }
 
+    @PutMapping
+    @Transactional
+    public void atualizar(@RequestBody @Valid DadosAtualizarRemedio dados) {
+        var remedio = repository.getReferenceById(dados.id());
+        remedio.atualizarInformacoes(dados);
+    }
 }
