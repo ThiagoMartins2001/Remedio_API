@@ -3,7 +3,9 @@ package com.remedio.thiago.curso.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,5 +45,12 @@ public class RemedioController {
     public void atualizar(@RequestBody @Valid DadosAtualizarRemedio dados) {
         var remedio = repository.getReferenceById(dados.id());
         remedio.atualizarInformacoes(dados);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void excluir(@PathVariable Long id) {  
+        repository.deleteById(id);
+
     }
 }
