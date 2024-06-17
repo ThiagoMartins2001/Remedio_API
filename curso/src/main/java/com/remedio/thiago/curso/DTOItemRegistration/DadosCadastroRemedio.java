@@ -1,6 +1,9 @@
-package com.remedio.thiago.curso.remedio;
+package com.remedio.thiago.curso.DTOItemRegistration;
 
 import java.time.LocalDate;
+
+import com.remedio.thiago.curso.remedio.Laboratorio;
+import com.remedio.thiago.curso.remedio.Via;
 
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Future;

@@ -1,6 +1,10 @@
-package com.remedio.thiago.curso.remedio;
+package com.remedio.thiago.curso.DTOItemRegistration;
 
 import java.time.LocalDate;
+
+import com.remedio.thiago.curso.remedio.Laboratorio;
+import com.remedio.thiago.curso.remedio.Remedio;
+import com.remedio.thiago.curso.remedio.Via;
 
 public record DadosDetalhamentoRemedio(
     Long id, 

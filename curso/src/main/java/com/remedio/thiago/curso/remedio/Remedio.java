@@ -2,6 +2,9 @@ package com.remedio.thiago.curso.remedio;
 
 import java.time.LocalDate;
 
+import com.remedio.thiago.curso.DTOItemRegistration.DadosAtualizarRemedio;
+import com.remedio.thiago.curso.DTOItemRegistration.DadosCadastroRemedio;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

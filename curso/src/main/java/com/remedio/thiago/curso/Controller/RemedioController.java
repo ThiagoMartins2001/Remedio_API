@@ -12,13 +12,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
-import com.remedio.thiago.curso.remedio.DadosAtualizarRemedio;
-import com.remedio.thiago.curso.remedio.DadosCadastroRemedio;
-import com.remedio.thiago.curso.remedio.DadosDetalhamentoRemedio;
-import com.remedio.thiago.curso.remedio.DadosListagemRemedio;
+import com.remedio.thiago.curso.DTOItemRegistration.DadosAtualizarRemedio;
+import com.remedio.thiago.curso.DTOItemRegistration.DadosCadastroRemedio;
+import com.remedio.thiago.curso.DTOItemRegistration.DadosDetalhamentoRemedio;
+import com.remedio.thiago.curso.DTOItemRegistration.DadosListagemRemedio;
+import com.remedio.thiago.curso.Repositories.RemedioRepository;
 import com.remedio.thiago.curso.remedio.Remedio;
-import com.remedio.thiago.curso.remedio.RemedioRepository;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -32,9 +33,10 @@ public class RemedioController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<Void> cadastrar(@RequestBody @Valid DadosCadastroRemedio dados){
-        repository.save(new Remedio(dados));
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<DadosDetalhamentoRemedio> cadastrar(@RequestBody @Valid DadosCadastroRemedio dados, UriComponentsBuilder uriBuilder){
+        var remedio = repository.save(new Remedio(dados));
+        var uri = uriBuilder.path("/remedios/{id}").buildAndExpand(remedio.getId()).toUri();
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoRemedio(remedio));
 
     }
 

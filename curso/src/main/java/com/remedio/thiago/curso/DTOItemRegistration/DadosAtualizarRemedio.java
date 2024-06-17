@@ -1,4 +1,7 @@
-package com.remedio.thiago.curso.remedio;
+package com.remedio.thiago.curso.DTOItemRegistration;
+
+import com.remedio.thiago.curso.remedio.Laboratorio;
+import com.remedio.thiago.curso.remedio.Via;
 
 import jakarta.validation.constraints.NotNull;
 
