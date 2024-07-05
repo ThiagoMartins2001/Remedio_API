@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.remedio.thiago.curso.DTOAuthenticator.DadosAuthenticator;
+import com.remedio.thiago.curso.ErrorFilter.TokenService;
+import com.remedio.thiago.curso.User.User;
 
+import ch.qos.logback.core.subst.Token;
 import jakarta.validation.Valid;
 
 @RestController
@@ -20,11 +23,14 @@ public class AuthenticatorController {
     @Autowired
     private AuthenticationManager manager;
 
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping
     public ResponseEntity<?> efetuarLogin(@RequestBody @Valid DadosAuthenticator dados){
         var token =  new UsernamePasswordAuthenticationToken(dados. login(), dados.senha());
         var authentication = manager.authenticate(token);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(tokenService.generateToken((User) authentication.getPrincipal()));
 
     }
 
