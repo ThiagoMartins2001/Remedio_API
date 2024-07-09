@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.remedio.thiago.curso.DTOAuthenticator.DadosAuthenticator;
+import com.remedio.thiago.curso.DTOAuthenticator.DadosTokenJWL;
 import com.remedio.thiago.curso.ErrorFilter.TokenService;
 import com.remedio.thiago.curso.User.User;
 
@@ -30,7 +31,8 @@ public class AuthenticatorController {
     public ResponseEntity<?> efetuarLogin(@RequestBody @Valid DadosAuthenticator dados){
         var token =  new UsernamePasswordAuthenticationToken(dados. login(), dados.senha());
         var authentication = manager.authenticate(token);
-        return ResponseEntity.ok(tokenService.generateToken((User) authentication.getPrincipal()));
+        var tokenJWT = (tokenService.generateToken((User) authentication.getPrincipal()));
+        return ResponseEntity.ok(new DadosTokenJWL(tokenJWT));
 
     }
 
